@@ -6,9 +6,10 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { getCountryCode } from "@lib/data/cookies"
 
 type Props = {
-  params: Promise<{ category: string[]; countryCode: string }>
+  params: Promise<{ category: string[] }>
   searchParams: Promise<{
     sortBy?: SortOptions
     page?: string
@@ -64,6 +65,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function CategoryPage(props: Props) {
+  const countryCode = await getCountryCode()
+
+  if (!countryCode) {
+    return notFound();
+  }
+
   const searchParams = await props.searchParams
   const params = await props.params
   const { sortBy, page } = searchParams
@@ -79,7 +86,7 @@ export default async function CategoryPage(props: Props) {
       category={productCategory}
       sortBy={sortBy}
       page={page}
-      countryCode={params.countryCode}
+      countryCode={countryCode}
     />
   )
 }
