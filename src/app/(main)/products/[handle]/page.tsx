@@ -73,6 +73,12 @@ function getImagesForVariant(
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const { handle } = params
+  const countryCode = await getCountryCode()
+
+  if (!countryCode) {
+    notFound()
+  }
+
   const region = await getRegion(countryCode)
 
   if (!region) {
@@ -80,7 +86,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 
   const product = await listProducts({
-    countryCode: params.countryCode,
+    countryCode: countryCode,
     queryParams: { handle },
   }).then(({ response }) => response.products[0])
 
@@ -103,7 +109,7 @@ export default async function ProductPage(props: Props) {
   const countryCode = await getCountryCode()
 
   if (!countryCode) {
-    return notFound();
+    return notFound()
   }
   const params = await props.params
   const region = await getRegion(countryCode)
