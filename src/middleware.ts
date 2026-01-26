@@ -1,6 +1,7 @@
 import { HttpTypes } from "@medusajs/types"
 import { NextRequest, NextResponse } from "next/server"
 import { COUNTRY_CODE_COOKIE_NAME } from "@lib/data/cookies"
+import { i18nConfig, isValidLocale } from "@i18n/config"
 
 const BACKEND_URL = process.env.MEDUSA_BACKEND_URL
 const PUBLISHABLE_API_KEY = process.env.NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY
@@ -111,14 +112,56 @@ async function getCountryCode(
 }
 
 /**
+ * Determines the locale code from cookie or headers.
+ * @param request
+ *
+ */
+async function getLocaleCode(request: NextRequest) {
+  // First, check if locale is already in cookie.
+  const cookieLocale = request.cookies.get(i18nConfig.localeCookieName)?.value
+
+  if (cookieLocale && isValidLocale(cookieLocale)) {
+    return cookieLocale
+  }
+
+  // Parse accept-language header.
+  const acceptLanguage = request.headers.get("accept-language")
+
+  if (acceptLanguage) {
+    const languages = acceptLanguage
+      .split(",")
+      .map((lang) => {
+        const [locale, qValue] = lang.trim().split(";")
+        const q = qValue ? parseFloat(qValue.replace("q=", "")) : 1.0
+        return { locale: locale.split("-")[0], q }
+      })
+      .sort((a, b) => b.q - a.q)
+      .map((item) => item.locale)
+
+    for (const lang of languages) {
+      if (isValidLocale(lang)) {
+        return lang
+      }
+    }
+  }
+
+  return i18nConfig.defaultLocale
+}
+
+/**
  * Middleware to handle region selection and country code cookie management.
  */
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname
+
   // Check if the url is a static asset
-  if (request.nextUrl.pathname.includes(".")) {
+  if (pathname.includes(".")) {
     return NextResponse.next()
   }
 
+  // ==========================================
+  // STEP 1: Handle Medusa Region/Country Code
+  // ==========================================
   const cacheIdCookie = request.cookies.get("_medusa_cache_id")
   const cacheId = cacheIdCookie?.value || crypto.randomUUID()
 
@@ -140,7 +183,8 @@ export async function middleware(request: NextRequest) {
     )
   }
 
-  // Create response
+  const localeCode = await getLocaleCode(request)
+
   const response = NextResponse.next()
 
   // Set cache ID cookie if not set
@@ -156,6 +200,16 @@ export async function middleware(request: NextRequest) {
     response.cookies.set(COUNTRY_CODE_COOKIE_NAME, countryCode, {
       maxAge: 60 * 60 * 24 * 365, // 1 year
       httpOnly: false, // Allow client-side access
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    })
+  }
+
+  const cookieLocaleCode = request.cookies.get(i18nConfig.localeCookieName)?.value
+  if (!cookieLocaleCode || cookieLocaleCode !== localeCode) {
+    response.cookies.set(i18nConfig.localeCookieName, localeCode, {
+      maxAge: 60 * 60 * 24 * 365,
+      httpOnly: false,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     })
