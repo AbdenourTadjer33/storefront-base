@@ -1,0 +1,8 @@
+{
+    "welcome": "Bienvenu",
+    "components": {
+        "locale-switcher": {
+            "label": "Changer de langue"
+        }
+    }
+}

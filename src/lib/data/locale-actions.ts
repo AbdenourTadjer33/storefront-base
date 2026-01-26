@@ -4,6 +4,7 @@ import { sdk } from "@lib/config"
 import { revalidateTag } from "next/cache"
 import { cookies as nextCookies } from "next/headers"
 import { getAuthHeaders, getCacheTag, getCartId } from "./cookies"
+import { i18nConfig } from "@i18n/config"
 
 const LOCALE_COOKIE_NAME = "_medusa_locale"
 
@@ -71,4 +72,14 @@ export const updateLocale = async (localeCode: string): Promise<string> => {
   }
 
   return localeCode
+}
+
+export const setLocaleCodeCookie = async (code: string): Promise<void> => {
+  const cookies = await nextCookies()
+  cookies.set(i18nConfig.localeCookieName, code, {
+    maxAge: 60 * 60 * 24 * 365,
+    httpOnly: false,
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
+  })
 }

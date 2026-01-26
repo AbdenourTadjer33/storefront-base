@@ -1,0 +1,8 @@
+{
+    "welcome": "Welcome",
+    "components": {
+        "locale-switcher": {
+            "label": "Change language"
+        }
+    }
+}
