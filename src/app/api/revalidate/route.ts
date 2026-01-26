@@ -14,10 +14,12 @@ export async function GET(req: NextRequest) {
     tagsArray.map(async (tag) => {
       switch (tag) {
         case "products":
+          revalidatePath("/(main)/", "page")
           revalidatePath("/(main)/store", "page")
           revalidatePath("/(main)/products/[handle]", "page")
           break
         case "collections":
+          revalidatePath("/(main)/", "page")
           break
         case "categories":
           revalidatePath("/(main)/", "page")
