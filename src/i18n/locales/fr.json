@@ -34,6 +34,9 @@
             "title": "Une erreur s'est produite lorsque nous avons essayé de transférer votre panier",
             "action": "Exécutez à nouveau le transfert",
             "action-loading": "Transfert.."
+        },
+        "line-item-options": {
+            "variant": "Variante"
         }
     }
 }

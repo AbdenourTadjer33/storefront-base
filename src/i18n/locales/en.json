@@ -34,6 +34,9 @@
             "title": "Something went wrong when we tried to transfer your cart",
             "action": "Run transfer again",
             "action-loading": "Transferring.."
+        },
+        "line-item-options": {
+            "variant": "Variant"
         }
     }
 }
