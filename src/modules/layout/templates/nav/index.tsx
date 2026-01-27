@@ -45,7 +45,7 @@ export default async function Nav({ sticky }: Props) {
           sticky && "sticky top-0 z-50 shadow-sm"
         )}
       >
-        <div className="container mx-auto px-4">
+        <div className="content-container">
           {/* Desktop Navbar */}
           <nav
             className="hidden md:flex items-center justify-between h-16 gap-4"
