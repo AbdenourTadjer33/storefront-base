@@ -3,6 +3,37 @@
     "components": {
         "locale-switcher": {
             "label": "تغيير اللغة"
+        },
+        "nav": {
+            "home": "الرئيسية",
+            "store": "محل",
+            "cart": "عربة",
+            "search": "بحث",
+            "account": "حسابي الشخصي"
+        },
+        "search": {
+            "title": "بحث",
+            "placeholder": "بحث عن المنتجات...",
+            "hint": "ابدأ الكتابة للبحث..."
+        },
+        "shopping-cart": {
+            "title": "عربة التسوق",
+            "subtotal": "المجموع الفرعي",
+            "subtotal-info": "الشحن والضرائب تحسب عند الخروج.",
+            "qty": "الكمية",
+            "quantity": "كمية",
+            "remove": "يزيل",
+            "checkout": "الشروع في الخروج",
+            "or": "أو",
+            "continue-shopping": "مواصلة التسوق",
+            "empty-title": "سلة التسوق الخاصة بك فارغة حاليًا.",
+            "empty-description": "يمكنك الاطلاع على جميع المنتجات المتاحة وشرائها من المتجر.",
+            "explore-products": "اكتشف المنتجات"
+        },
+        "cart-mismatch-banner": {
+            "title": "حدث خطأ ما عندما حاولنا نقل سلة التسوق الخاصة بك",
+            "action": "قم بتشغيل النقل مرة أخرى",
+            "action-loading": "نقل.."
         }
     }
 }

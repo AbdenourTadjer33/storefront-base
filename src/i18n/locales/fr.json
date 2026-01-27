@@ -3,6 +3,37 @@
     "components": {
         "locale-switcher": {
             "label": "Changer de langue"
+        },
+        "nav": {
+            "home": "Accueil",
+            "store": "Boutique",
+            "cart": "Panier",
+            "search": "Rechercher",
+            "account": "Mon compte"
+        },
+        "search": {
+            "title": "Rechercher",
+            "placeholder": "Rechercher des produits...",
+            "hint": "Commencez à saisir du texte pour effectuer une recherche..."
+        },
+        "shopping-cart": {
+            "title": "Panier",
+            "subtotal": "Sous-total",
+            "subtotal-info": "Frais de port et taxes calculés à la caisse.",
+            "checkout": "Passer à la caisse",
+            "qty": "Qte",
+            "quantity": "Quantité",
+            "remove": "Retirer",
+            "or": "ou",
+            "continue-shopping": "Continuer vos achats",
+            "empty-title": "Votre panier est actuellement vide.",
+            "empty-description": "Vous pouvez consulter tous les produits disponibles et acheter dans le magasin.",
+            "explore-products": "Explorer les produits"
+        },
+        "cart-mismatch-banner": {
+            "title": "Une erreur s'est produite lorsque nous avons essayé de transférer votre panier",
+            "action": "Exécutez à nouveau le transfert",
+            "action-loading": "Transfert.."
         }
     }
 }

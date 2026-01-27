@@ -3,6 +3,37 @@
     "components": {
         "locale-switcher": {
             "label": "Change language"
+        },
+        "nav": {
+            "home": "Home",
+            "store": "Store",
+            "cart": "Cart",
+            "search": "Search",
+            "account": "Account"
+        },
+        "search": {
+            "title": "Search",
+            "placeholder": "Search products...",
+            "hint": "Start typing to search..."
+        },
+        "shopping-cart": {
+            "title": "Shopping cart",
+            "subtotal": "Subtotal",
+            "subtotal-info": "Shipping and taxes calculated at checkout.",
+            "qty": "Qty",
+            "quantity": "Quantity",
+            "remove": "Remove",
+            "checkout": "Proceed to Checkout",
+            "or": "or",
+            "continue-shopping": "Continue Shopping",
+            "empty-title": "Your cart is currently empty.",
+            "empty-description": "You can view all available products and purchase them in the store.",
+            "explore-products": "Explore products"
+        },
+        "cart-mismatch-banner": {
+            "title": "Something went wrong when we tried to transfer your cart",
+            "action": "Run transfer again",
+            "action-loading": "Transferring.."
         }
     }
 }
