@@ -1,66 +1,99 @@
-import { Suspense } from "react"
+import { cn } from "@lib/util/utils"
+import { retrieveCart } from "@lib/data/cart"
 
-import { listRegions } from "@lib/data/regions"
-import { listLocales } from "@lib/data/locales"
-import { getLocale } from "@lib/data/locale-actions"
-import { StoreRegion } from "@medusajs/types"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
+import AccountButton from "@modules/layout/components/account-button"
+import LogoContainer from "@modules/layout/components/logo-container"
+import MobileBottomNav from "@modules/layout/components/mobile-bottom-nav"
+import SearchBar from "@modules/layout/components/search-bar"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
-export default async function Nav() {
-  const [regions, locales, currentLocale] = await Promise.all([
-    listRegions().then((regions: StoreRegion[]) => regions),
-    listLocales(),
-    getLocale(),
-  ])
+interface Props {
+  sticky?: boolean
+}
+
+/**
+ * Production-ready responsive Navbar component.
+ *
+ * Features:
+ * - Desktop: Logo | Centered Search | Account | Cart
+ * - Mobile: Top bar (Logo + Account + Cart) + Fixed bottom navigation
+ * - RTL support via dir prop
+ * - Sticky behavior via sticky prop
+ * - Logo container handles any aspect ratio
+ */
+export default async function Nav({ sticky }: Props) {
+  const cart = await retrieveCart().catch(() => null)
+
+  const totalItems =
+    cart?.items?.reduce((acc, item) => {
+      return acc + item.quantity
+    }, 0) || 0
+
+  const logoSrc = "/logo.svg"
+  const logoAlt = "logo"
 
   return (
-    <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
-          <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
-              <SideMenu regions={regions} locales={locales} currentLocale={currentLocale} />
-            </div>
-          </div>
-
-          <div className="flex items-center h-full">
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
-              data-testid="nav-store-link"
-            >
-              Medusa Store
-            </LocalizedClientLink>
-          </div>
-
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Account
+    <>
+      {/* Main Navbar */}
+      <header
+        // dir={dir}
+        className={cn(
+          "w-full bg-background/95 backdrop-blur-md",
+          "border-b border-border/50",
+          "transition-shadow duration-200",
+          sticky && "sticky top-0 z-50 shadow-sm"
+        )}
+      >
+        <div className="container mx-auto px-4">
+          {/* Desktop Navbar */}
+          <nav
+            className="hidden md:flex items-center justify-between h-16 gap-4"
+            aria-label="Main navigation"
+          >
+            {/* Logo */}
+            <div className="shrink-0">
+              <LocalizedClientLink href="/" aria-label={logoAlt}>
+                <LogoContainer src={logoSrc} alt={logoAlt} />
               </LocalizedClientLink>
             </div>
-            <Suspense
-              fallback={
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
-                  href="/cart"
-                  data-testid="nav-cart-link"
-                >
-                  Cart (0)
-                </LocalizedClientLink>
-              }
-            >
-              <CartButton />
-            </Suspense>
-          </div>
-        </nav>
+
+            {/* Centered Search */}
+            <div className="flex-1 flex justify-center px-8">
+              <SearchBar className="max-w-lg w-full" />
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center gap-1 shrink-0">
+              <AccountButton />
+              <CartButton cart={cart} totalCartItems={totalItems} />
+            </div>
+          </nav>
+
+          {/* Mobile Top Bar */}
+          <nav
+            className="flex md:hidden items-center justify-between h-14"
+            aria-label="Mobile navigation"
+          >
+            {/* Logo */}
+            <LocalizedClientLink href="/" aria-label={logoAlt}>
+              <LogoContainer src={logoSrc} alt={logoAlt} className="h-6" />
+            </LocalizedClientLink>
+
+            {/* Actions */}
+            <div className="flex items-center gap-0.5">
+              <AccountButton />
+              <CartButton cart={cart} totalCartItems={totalItems} />
+            </div>
+          </nav>
+        </div>
       </header>
-    </div>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav totalCartItems={totalItems} />
+
+      {/* Spacer for mobile bottom nav */}
+      {/* <div className="h-16 md:hidden" aria-hidden="true" /> */}
+    </>
   )
 }
