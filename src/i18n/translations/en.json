@@ -1,5 +1,10 @@
 {
     "welcome": "Welcome",
+    "templates": {
+        "store": {
+            "title": "All products"
+        }
+    },
     "components": {
         "locale-switcher": {
             "label": "Change language"
@@ -37,6 +42,40 @@
         },
         "line-item-options": {
             "variant": "Variant"
+        },
+        "product-variant-selector": {
+            "clear": "Clear",
+            "clear-all-selections": "Clear all selections"
+        },
+        "product-actions": {
+            "out-of-stock": "Out of Stock",
+            "pre-order": "Pre-Order",
+            "add-cart": "Add to Cart",
+            "buy-now": "Buy Now",
+            "select-options": "Please select all options to continue"
+        },
+        "product-details-accordion": {
+            "description": "Description",
+            "features": "Features",
+            "materials-care": "Materials & Care",
+            "materials": "Materials",
+            "care": "Care",
+            "dimensions": "Dimensions",
+            "weight": "Weight",
+            "length": "Length",
+            "width": "Width",
+            "height": "Height",
+            "shipping": "Shipping & Returns",
+            "warranty": "Warranty"
+        },
+        "product-badges": {
+            "new": "New",
+            "bestseller": "Bestseller",
+            "limited": "Limited Edition"
+        },
+        "related-products": {
+            "title": "Related products",
+            "description": "You might also want to check out these products."
         }
     }
 }

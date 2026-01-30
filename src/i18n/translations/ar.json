@@ -1,5 +1,10 @@
 {
     "welcome": "مرحباً",
+    "templates": {
+        "store": {
+            "title": "All products"
+        }
+    },
     "components": {
         "locale-switcher": {
             "label": "تغيير اللغة"
@@ -37,6 +42,40 @@
         },
         "line-item-options": {
             "variant": "البديل"
+        },
+        "product-variant-selector": {
+            "clear": "مسح",
+            "clear-all-selections": "مسح كافة التحديدات"
+        },
+        "product-actions": {
+            "out-of-stock": "إنتهى من المخزن",
+            "pre-order": "النظام السابق",
+            "add-cart": "أضف إلى السلة",
+            "buy-now": "اشتري الآن",
+            "select-options": "الرجاء تحديد كافة الخيارات للمتابعة"
+        },
+        "product-details-accordion": {
+            "description": "وصف",
+            "features": "سمات",
+            "materials-care": "المواد والعناية",
+            "materials": "مواد",
+            "care": "رعاية",
+            "dimensions": "أبعاد",
+            "weight": "وزن",
+            "length": "طول",
+            "width": "عرض",
+            "height": "ارتفاع",
+            "shipping": "الشحن والإرجاع",
+            "warranty": "ضمان"
+        },
+        "product-badges": {
+            "new": "New",
+            "bestseller": "Bestseller",
+            "limited": "Limited Edition"
+        },
+        "related-products": {
+            "title": "Related products",
+            "description": "You might also want to check out these products."
         }
     }
 }

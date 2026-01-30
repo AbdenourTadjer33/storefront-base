@@ -1,5 +1,10 @@
 {
     "welcome": "Bienvenu",
+    "templates": {
+        "store": {
+            "title": "All products"
+        }
+    },
     "components": {
         "locale-switcher": {
             "label": "Changer de langue"
@@ -37,6 +42,40 @@
         },
         "line-item-options": {
             "variant": "Variante"
+        },
+        "product-variant-selector": {
+            "clear": "Effacer",
+            "clear-all-selections": "Effacer toutes les sélections"
+        },
+        "product-actions": {
+            "out-of-stock": "En rupture de stock",
+            "pre-order": "Précommande",
+            "add-cart": "Ajouter au panier",
+            "buy-now": "Acheter maintenant",
+            "select-options": "Veuillez sélectionner toutes les options pour continuer"
+        },
+        "product-details-accordion": {
+            "description": "Description",
+            "features": "Caractéristiques",
+            "materials-care": "Matériaux et entretien",
+            "materials": "Matériels",
+            "care": "Soins",
+            "dimensions": "Dimensions",
+            "weight": "Poids",
+            "length": "Longueur",
+            "width": "Largeur",
+            "height": "Hauteur",
+            "shipping": "Expéditions et retours",
+            "warranty": "Garantie"
+        },
+        "product-badges": {
+            "new": "New",
+            "bestseller": "Bestseller",
+            "limited": "Limited Edition"
+        },
+        "related-products": {
+            "title": "Related products",
+            "description": "You might also want to check out these products."
         }
     }
 }
