@@ -79,7 +79,10 @@ export default async function Nav({ customer }: Props) {
             {/* Centered Search */}
             <div className="flex-1 flex justify-center px-8">
               <SearchSheet cart={cart} totalCartItems={totalItems}>
-                <Button variant="outline" className="min-w-lg flex items-center justify-between">
+                <Button
+                  variant="outline"
+                  className="min-w-lg flex items-center justify-between text-muted-foreground"
+                >
                   <span>{t("search")}</span>
                   <Search className="size-4" />
                 </Button>
