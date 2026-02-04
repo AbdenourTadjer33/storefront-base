@@ -1,6 +1,7 @@
 import { sdk } from "@lib/config"
 import { HttpTypes } from "@medusajs/types"
 import { getCacheOptions } from "./cookies"
+import { cache } from "react"
 
 export const listCategories = async (query?: Record<string, any>) => {
   const next = {
@@ -47,3 +48,8 @@ export const getCategoryByHandle = async (categoryHandle: string[]) => {
     )
     .then(({ product_categories }) => product_categories[0])
 }
+
+export const getCachedCategoryMap = cache(async () => {
+  const categories = await listCategories()
+  return new Map(categories.map((c) => [c.id, c]))
+})
