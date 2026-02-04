@@ -28,11 +28,16 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  allowedDevOrigins: ["127.0.0.1", "localhost", "192.168.100.3"],
   images: {
     remotePatterns: [
       {
         protocol: "http",
         hostname: "localhost",
+      },
+      {
+        protocol: "http",
+        hostname: "192.168.100.3",
       },
       {
         protocol: "https",
