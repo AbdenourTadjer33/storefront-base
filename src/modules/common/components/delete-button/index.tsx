@@ -1,7 +1,8 @@
 import { deleteLineItem } from "@lib/data/cart"
-import { Spinner, Trash } from "@medusajs/icons"
-import { clx } from "@medusajs/ui"
+import { cn } from "@lib/util/utils"
 import { useState } from "react"
+import Trash from "@modules/common/icons/trash"
+import Spinner from "@modules/common/icons/spinner"
 
 const DeleteButton = ({
   id,
@@ -22,9 +23,7 @@ const DeleteButton = ({
   }
 
   return (
-    <div
-      className={clx("flex items-center justify-between text-sm", className)}
-    >
+    <div className={cn("flex items-center justify-between text-sm", className)}>
       <button
         className="flex items-center gap-x-1 text-muted-foreground hover:text-destructive transition-colors cursor-pointer"
         onClick={() => handleDelete(id)}

@@ -1,6 +1,6 @@
 import { cn } from "@lib/util/utils"
 import { retrieveCart } from "@lib/data/cart"
-
+import storeConfig from "@lib/store-config"
 import CartButton from "@modules/layout/components/cart-button"
 import AccountButton from "@modules/layout/components/account-button"
 import LogoContainer from "@modules/layout/components/logo-container"
@@ -8,8 +8,20 @@ import MobileBottomNav from "@modules/layout/components/mobile-bottom-nav"
 import SearchBar from "@modules/layout/components/search-bar"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
+import Menu from "@modules/common/icons/menu"
+import MenuSheet from "@modules/layout/components/menu-sheet"
+import { HttpTypes } from "@medusajs/types"
+import { listCategories } from "@lib/data/categories"
+import SecondaryNav from "./secondary-nav"
+import { buildCategoryTree } from "@lib/util/build-category-tree"
+import { sortCategories } from "@lib/util/sort-categories"
+import { getTranslations } from "next-intl/server"
+import SearchSheet from "@modules/layout/components/search-sheet"
+import { Button } from "@components/ui/button"
+import Search from "@modules/common/icons/search"
+
 interface Props {
-  sticky?: boolean
+  customer?: HttpTypes.StoreCustomer | null
 }
 
 /**
@@ -22,7 +34,13 @@ interface Props {
  * - Sticky behavior via sticky prop
  * - Logo container handles any aspect ratio
  */
-export default async function Nav({ sticky }: Props) {
+export default async function Nav({ customer }: Props) {
+  const sticky = storeConfig.isNavbarSticky
+  const logoSrc = storeConfig.logoSrc
+  const logoAlt = storeConfig.logoAlt
+
+  const t = await getTranslations("components.nav")
+
   const cart = await retrieveCart().catch(() => null)
 
   const totalItems =
@@ -30,17 +48,17 @@ export default async function Nav({ sticky }: Props) {
       return acc + item.quantity
     }, 0) || 0
 
-  const logoSrc = "/logo.svg"
-  const logoAlt = "logo"
+  const categories = await listCategories()
+  const categoryTree = buildCategoryTree(categories)
+  const sortedCategories = sortCategories(categoryTree)
+  const topCategories = sortedCategories.slice(0, 6)
 
   return (
     <>
       {/* Main Navbar */}
       <header
-        // dir={dir}
         className={cn(
-          "w-full bg-background/95 backdrop-blur-md",
-          "border-b border-border/50",
+          "w-full bg-navbar border-b border-navbar-border", // backdrop-blur-md"
           "transition-shadow duration-200",
           sticky && "sticky top-0 z-50 shadow-sm"
         )}
@@ -60,7 +78,12 @@ export default async function Nav({ sticky }: Props) {
 
             {/* Centered Search */}
             <div className="flex-1 flex justify-center px-8">
-              <SearchBar className="max-w-lg w-full" />
+              <SearchSheet cart={cart} totalCartItems={totalItems}>
+                <Button variant="outline" className="min-w-lg flex items-center justify-between">
+                  <span>{t("search")}</span>
+                  <Search className="size-4" />
+                </Button>
+              </SearchSheet>
             </div>
 
             {/* Actions */}
@@ -75,10 +98,24 @@ export default async function Nav({ sticky }: Props) {
             className="flex md:hidden items-center justify-between h-14"
             aria-label="Mobile navigation"
           >
-            {/* Logo */}
-            <LocalizedClientLink href="/" aria-label={logoAlt}>
-              <LogoContainer src={logoSrc} alt={logoAlt} className="h-6" />
-            </LocalizedClientLink>
+            <div className="flex items-center gap-0.4">
+              <MenuSheet
+                customer={customer}
+                sortedCategories={sortedCategories}
+              >
+                <button
+                  className="flex items-center justify-center p-2 text-foreground/80 transition-colors hover:text-foreground lg:hidden"
+                  aria-label="Open menu"
+                >
+                  <Menu className="size-5" />
+                </button>
+              </MenuSheet>
+
+              {/* Logo */}
+              <LocalizedClientLink href="/" aria-label={logoAlt}>
+                <LogoContainer src={logoSrc} alt={logoAlt} className="h-6" />
+              </LocalizedClientLink>
+            </div>
 
             {/* Actions */}
             <div className="flex items-center gap-0.5">
@@ -87,10 +124,37 @@ export default async function Nav({ sticky }: Props) {
             </div>
           </nav>
         </div>
+
+        <nav
+          className="hidden md:block"
+          role="navigation"
+          aria-label="Main navigation"
+        >
+          <div className="flex h-12 content-container items-center justify-center gap-8 px-6">
+            {/* Store Link */}
+            <LocalizedClientLink
+              href="/store"
+              className={cn("nav-link data-[active=true]:nav-link-active")}
+            >
+              {t("store")}
+            </LocalizedClientLink>
+
+            {/* Category Links */}
+            <SecondaryNav topCategories={topCategories} />
+
+            {/* What's New Link */}
+            <LocalizedClientLink
+              href="/whats-new"
+              className={cn("nav-link data-[active=true]:nav-link-active")}
+            >
+              {t("new")}
+            </LocalizedClientLink>
+          </div>
+        </nav>
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <MobileBottomNav totalCartItems={totalItems} />
+      <MobileBottomNav cart={cart} totalCartItems={totalItems} />
 
       {/* Spacer for mobile bottom nav */}
       {/* <div className="h-16 md:hidden" aria-hidden="true" /> */}

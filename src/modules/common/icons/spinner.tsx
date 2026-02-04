@@ -1,3 +1,4 @@
+import { cn } from "@lib/util/utils"
 import React from "react"
 
 import { IconProps } from "types/icon"
@@ -5,11 +6,12 @@ import { IconProps } from "types/icon"
 const Spinner: React.FC<IconProps> = ({
   size = "16",
   color = "currentColor",
+  className,
   ...attributes
 }) => {
   return (
     <svg
-      className="animate-spin"
+      className={cn("animate-spin", className)}
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"

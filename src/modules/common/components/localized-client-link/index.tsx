@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import React from "react"
 
 /**
@@ -20,8 +20,10 @@ const LocalizedClientLink = ({
   passHref?: true
   [x: string]: any
 }) => {
+  const pathname = usePathname()
+
   return (
-    <Link href={href} {...props}>
+    <Link href={href} {...props} data-active={href === pathname}>
       {children}
     </Link>
   )

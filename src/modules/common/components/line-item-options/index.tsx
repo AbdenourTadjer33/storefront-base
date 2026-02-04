@@ -1,5 +1,4 @@
 import { HttpTypes } from "@medusajs/types"
-import { Text } from "@medusajs/ui"
 import { useTranslations } from "next-intl"
 
 type LineItemOptionsProps = {
@@ -16,13 +15,13 @@ const LineItemOptions = ({
   const t = useTranslations("components.line-item-options")
 
   return (
-    <Text
+    <p
       data-testid={dataTestid}
       data-value={dataValue}
-      className="inline-block txt-medium text-ui-fg-subtle w-full overflow-hidden text-ellipsis"
+      className="inline-block sm:text-sm text-xs line-clamp-1"
     >
-      {t("variant")}: {variant?.title}
-    </Text>
+      {t("variant")}: <span className="font-medium">{variant?.title}</span>
+    </p>
   )
 }
 

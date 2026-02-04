@@ -5,8 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@components/ui/sheet"
 import { convertToLocale } from "@lib/util/money"
 import { useLocale, useTranslations } from "next-intl"
 import { getCheckoutStep } from "@lib/util/get-checkout-step"
-import { useEffect, useMemo, useRef, useState } from "react"
-import { usePathname } from "next/navigation"
+import { useState } from "react"
 import { getLocaleDir } from "@i18n/config"
 import {
   CartFooter,
@@ -25,48 +24,16 @@ interface Props {
 export default function CartSheet({ cart, totalCartItems, children }: Props) {
   const t = useTranslations("components.shopping-cart")
   const locale = useLocale()
-
-  const [activeTimer, setActiveTimer] = useState<NodeJS.Timer | undefined>(
-    undefined
-  )
   const [cartSheetOpen, setCartSheetOpen] = useState(false)
 
-  const open = () => setCartSheetOpen(true)
-  const close = () => setCartSheetOpen(false)
-
   const subtotal = cart?.subtotal ?? 0
-  const itemRef = useRef<number>(totalCartItems)
-
-  const timedOpen = () => {
-    open()
-
-    const timer = setTimeout(close, 5000)
-
-    setActiveTimer(timer)
-  }
-
-  useEffect(() => {
-    return () => {
-      if (activeTimer) {
-        clearTimeout(activeTimer)
-      }
-    }
-  }, [activeTimer])
-
-  const pathname = usePathname()
-
-  useEffect(() => {
-    if (itemRef.current !== totalCartItems && !pathname.includes("/cart")) {
-      timedOpen()
-    }
-  }, [totalCartItems, itemRef.current])
 
   return (
     <Sheet open={cartSheetOpen} onOpenChange={setCartSheetOpen}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent
         side={getLocaleDir(locale) === "ltr" ? "right" : "left"}
-        className="flex h-full flex-col pb-0 sm:pb-0"
+        className="flex h-full flex-col pb-0 sm:pb-0 w-full sm:w-96 gap-0"
       >
         <CartHeader title={t("title")} />
 
