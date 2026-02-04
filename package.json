@@ -12,7 +12,9 @@
     "build": "next build",
     "start": "next start -p 8000",
     "lint": "next lint",
-    "analyze": "ANALYZE=true next build"
+    "analyze": "ANALYZE=true next build",
+    "i18n:validate": "node ./scripts/i18n/validate-translation.js",
+    "i18n:schema": "node ./scripts/i18n/generate-schema.js"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -53,6 +55,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.29.2",
     "input-otp": "^1.4.2",
     "lodash": "^4.17.21",
     "lucide-react": "^0.563.0",
@@ -95,6 +98,7 @@
     "eslint-config-next": "15.0.3",
     "postcss": "^8.4.8",
     "prettier": "^2.8.8",
+    "react-json-view": "^1.21.3",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.3.2"
   },
