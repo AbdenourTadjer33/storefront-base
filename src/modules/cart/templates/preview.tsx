@@ -2,10 +2,11 @@
 
 import repeat from "@lib/util/repeat"
 import { HttpTypes } from "@medusajs/types"
-import { Table, clx } from "@medusajs/ui"
+import { Table, TableBody } from "@components/ui/table"
 
 import Item from "@modules/cart/components/item"
 import SkeletonLineItem from "@modules/skeletons/components/skeleton-line-item"
+import { cn } from "@lib/util/utils"
 
 type ItemsTemplateProps = {
   cart: HttpTypes.StoreCart
@@ -17,13 +18,13 @@ const ItemsPreviewTemplate = ({ cart }: ItemsTemplateProps) => {
 
   return (
     <div
-      className={clx({
-        "pl-px overflow-y-scroll overflow-x-hidden no-scrollbar max-h-[420px]":
-          hasOverflow,
-      })}
+      className={cn(
+        hasOverflow &&
+          "pl-px overflow-y-scroll overflow-x-hidden no-scrollbar max-h-[420px]"
+      )}
     >
       <Table>
-        <Table.Body data-testid="items-table">
+        <TableBody data-testid="items-table">
           {items
             ? items
                 .sort((a, b) => {
@@ -42,7 +43,7 @@ const ItemsPreviewTemplate = ({ cart }: ItemsTemplateProps) => {
             : repeat(5).map((i) => {
                 return <SkeletonLineItem key={i} />
               })}
-        </Table.Body>
+        </TableBody>
       </Table>
     </div>
   )

@@ -121,7 +121,7 @@ export async function addToCart({
 }: {
   variantId: string
   quantity: number
-  countryCode: string
+  // countryCode: string
 }) {
   if (!variantId) {
     throw new Error("Missing variant ID when adding to cart")
@@ -387,10 +387,12 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     return e.message
   }
 
-  redirect(
-    `/${formData.get("shipping_address.country_code")}/checkout?step=delivery`
-  )
+  redirect("/checkout?step=delivery");
+
+  // redirect(`/${formData.get("shipping_address.country_code")}/checkout?step=delivery`)
 }
+
+
 
 /**
  * Places an order for a cart. If no cart ID is provided, it will use the cart ID from the cookies.
