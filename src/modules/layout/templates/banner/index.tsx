@@ -1,19 +1,29 @@
 import { listLocales } from "@lib/data/locales"
 import LocaleSwitcher from "@modules/layout/components/locale-switcher"
 
+/**
+ * Production-ready responsive top banner component.
+ *
+ * Spec:
+ * - height: h-12
+ */
 export default async function Banner() {
   const locales = await listLocales()
 
   return (
-    <div className="relative isolate flex items-center justify-between gap-x-6 overflow-hidden px-6 py-2.5 bg-white border-b">
-      <div></div>
-      <div>
-        <p className="text-muted-foreground">
-          🚚 Free shipping on orders over $50
-        </p>
-      </div>
-      <div>
-        <LocaleSwitcher locales={locales} />
+    <div className="bg-white border-b">
+      <div
+        className="relative isolate flex items-center justify-between gap-x-6 content-container overflow-hidden h-12" // py-2.5
+      >
+        <div></div>
+        <div>
+          <p className="text-muted-foreground">
+            🚚 Free shipping on orders over $50
+          </p>
+        </div>
+        <div>
+          <LocaleSwitcher locales={locales} />
+        </div>
       </div>
     </div>
   )

@@ -5,6 +5,8 @@ import Hero from "@modules/home/components/hero"
 import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { getCountryCode } from "@lib/data/cookies"
+import { listProducts } from "@lib/data/products"
+import { getTranslations } from "next-intl/server"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function Home() {
+  const t = await getTranslations()
   const countryCode = await getCountryCode()
 
   if (!countryCode) {

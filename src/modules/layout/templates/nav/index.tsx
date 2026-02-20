@@ -33,6 +33,13 @@ interface Props {
  * - RTL support via dir prop
  * - Sticky behavior via sticky prop
  * - Logo container handles any aspect ratio
+ *
+ *
+ * Spec:
+ * - desktop navbar: h-16
+ * - secondary navbar: h-12
+ * - mobile topbar: h-14
+ * - mobile bottom bar: h-16
  */
 export default async function Nav({ customer }: Props) {
   const sticky = storeConfig.isNavbarSticky
@@ -131,10 +138,9 @@ export default async function Nav({ customer }: Props) {
         <nav
           className="hidden md:block"
           role="navigation"
-          aria-label="Main navigation"
+          aria-label="secondary navigation"
         >
           <div className="flex h-12 content-container items-center justify-center gap-8 px-6">
-            {/* Store Link */}
             <LocalizedClientLink
               href="/store"
               className={cn("nav-link data-[active=true]:nav-link-active")}
@@ -142,10 +148,8 @@ export default async function Nav({ customer }: Props) {
               {t("store")}
             </LocalizedClientLink>
 
-            {/* Category Links */}
             <SecondaryNav topCategories={topCategories} />
 
-            {/* What's New Link */}
             <LocalizedClientLink
               href="/whats-new"
               className={cn("nav-link data-[active=true]:nav-link-active")}
