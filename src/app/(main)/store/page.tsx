@@ -1,9 +1,16 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
-
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
-import StoreTemplate from "@modules/store/templates"
 import { getCountryCode } from "@lib/data/cookies"
 import { notFound } from "next/navigation"
+import { getRegion } from "@lib/data/regions"
+import { FilterSearchParams } from "@modules/common/components/filter-panel"
+import { getTranslations } from "next-intl/server"
+
+import storeConfig from "@lib/store-config"
+import ProductsTemplate from "@modules/common/templates/products"
+import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
+import InfiniteScrollProductsWrapper from "@modules/common/components/infinite-scroll-products"
+import PaginatedProducts from "@modules/common/components/paginated-products"
 
 export const metadata: Metadata = {
   title: "Store",
@@ -11,28 +18,44 @@ export const metadata: Metadata = {
 }
 
 type Params = {
-  searchParams: Promise<{
-    sortBy?: SortOptions
-    page?: string
-  }>
+  searchParams: Promise<FilterSearchParams>
   params: Promise<{}>
 }
 
-export default async function StorePage(props: Params) {
+export default async function StorePage({ searchParams }: Params) {
+  const { page, sortBy, categoryId } = await searchParams
+
+  const t = await getTranslations("pages.store")
+
   const countryCode = await getCountryCode()
 
   if (!countryCode) {
-    return null;
+    return null
   }
-  const params = await props.params
-  const searchParams = await props.searchParams
-  const { sortBy, page } = searchParams
+
+  const region = await getRegion(countryCode)
+
+  if (!region) {
+    return notFound()
+  }
+
+  const props = {
+    countryCode,
+    region,
+    page: page ? parseInt(page) : 1,
+    sortBy: sortBy ?? "created_at",
+    categoryId,
+  }
 
   return (
-    <StoreTemplate
-      sortBy={sortBy}
-      page={page}
-      countryCode={countryCode}
-    />
+    <ProductsTemplate title={t("title")}>
+      <Suspense fallback={<SkeletonProductGrid />}>
+        {storeConfig.displayMode === "pagination" ? (
+          <PaginatedProducts {...props} />
+        ) : (
+          <InfiniteScrollProductsWrapper {...props} />
+        )}
+      </Suspense>
+    </ProductsTemplate>
   )
 }

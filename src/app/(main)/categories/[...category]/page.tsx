@@ -2,11 +2,11 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { getCategoryByHandle, listCategories } from "@lib/data/categories"
-import { listRegions } from "@lib/data/regions"
+import { getRegion, listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import CategoryTemplate from "@modules/categories/templates"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { getCountryCode } from "@lib/data/cookies"
+import { SortOptions } from "@modules/common/components/sort-products-dropdown"
 
 type Props = {
   params: Promise<{ category: string[] }>
@@ -68,7 +68,13 @@ export default async function CategoryPage(props: Props) {
   const countryCode = await getCountryCode()
 
   if (!countryCode) {
-    return notFound();
+    return notFound()
+  }
+
+  const region = await getRegion(countryCode)
+
+  if (!region) {
+    return notFound()
   }
 
   const searchParams = await props.searchParams
@@ -84,6 +90,7 @@ export default async function CategoryPage(props: Props) {
   return (
     <CategoryTemplate
       category={productCategory}
+      region={region}
       sortBy={sortBy}
       page={page}
       countryCode={countryCode}

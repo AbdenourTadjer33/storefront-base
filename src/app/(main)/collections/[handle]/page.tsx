@@ -1,19 +1,22 @@
+import { Suspense } from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-
 import { getCollectionByHandle, listCollections } from "@lib/data/collections"
-import { listRegions } from "@lib/data/regions"
+import { getRegion, listRegions } from "@lib/data/regions"
 import { StoreCollection, StoreRegion } from "@medusajs/types"
-import CollectionTemplate from "@modules/collections/templates"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { getCountryCode } from "@lib/data/cookies"
+import { SortOptions } from "@modules/common/components/sort-products-dropdown"
+
+import storeConfig from "@lib/store-config"
+import ProductsTemplate from "@modules/common/templates/products"
+import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
+import PaginatedProducts from "@modules/common/components/paginated-products"
+import InfiniteScrollProductsWrapper from "@modules/common/components/infinite-scroll-products"
+import { FilterSearchParams } from "@modules/common/components/filter-panel"
 
 type Props = {
   params: Promise<{ handle: string }>
-  searchParams: Promise<{
-    page?: string
-    sortBy?: SortOptions
-  }>
+  searchParams: Promise<FilterSearchParams>
 }
 
 export const PRODUCT_LIMIT = 12
@@ -67,30 +70,52 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return metadata
 }
 
-export default async function CollectionPage(props: Props) {
+export default async function CollectionPage({ params, searchParams }: Props) {
+  const { handle } = await params
+  const { sortBy, page, categoryId } = await searchParams
+
   const countryCode = await getCountryCode()
 
   if (!countryCode) {
-    return notFound();
+    return notFound()
   }
-  const searchParams = await props.searchParams
-  const params = await props.params
-  const { sortBy, page } = searchParams
 
-  const collection = await getCollectionByHandle(params.handle).then(
-    (collection: StoreCollection) => collection
-  )
+  const region = await getRegion(countryCode)
+
+  if (!region) {
+    return notFound()
+  }
+
+  const collection = await getCollectionByHandle(handle)
+    .then((collection) => collection)
+    .catch((r) => null)
 
   if (!collection) {
     notFound()
   }
 
+  const props = {
+    countryCode,
+    region,
+    page: page ? parseInt(page) : 1,
+    sortBy: sortBy ?? "created_at",
+    collectionId: collection.id,
+    categoryId: categoryId,
+  }
+
   return (
-    <CollectionTemplate
-      collection={collection}
-      page={page}
-      sortBy={sortBy}
-      countryCode={countryCode}
-    />
+    <ProductsTemplate title={collection.title} isCollection>
+      <Suspense
+        fallback={
+          <SkeletonProductGrid numberOfProducts={collection.products?.length} />
+        }
+      >
+        {storeConfig.displayMode === "pagination" ? (
+          <PaginatedProducts {...props} />
+        ) : (
+          <InfiniteScrollProductsWrapper {...props} />
+        )}
+      </Suspense>
+    </ProductsTemplate>
   )
 }
