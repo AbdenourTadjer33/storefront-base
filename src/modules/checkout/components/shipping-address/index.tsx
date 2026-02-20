@@ -6,6 +6,7 @@ import { mapKeys } from "lodash"
 import React, { useEffect, useMemo, useState } from "react"
 import AddressSelect from "../address-select"
 import CountrySelect from "../country-select"
+import { Heading } from "@components/ui/heading"
 
 const ShippingAddress = ({
   customer,
@@ -190,6 +191,7 @@ const ShippingAddress = ({
           onChange={onChange}
           data-testid="billing-address-checkbox"
         />
+        {/* <Heading level="h5">Coordinates</Heading> */}
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <Input

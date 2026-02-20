@@ -1,5 +1,7 @@
+import { getLocaleDir } from "@i18n/config"
 import { EllipseMiniSolid } from "@medusajs/icons"
 import { Label, RadioGroup, Text, clx } from "@medusajs/ui"
+import { useLocale } from "next-intl"
 
 type FilterRadioGroupProps = {
   title: string
@@ -19,15 +21,21 @@ const FilterRadioGroup = ({
   handleChange,
   "data-testid": dataTestId,
 }: FilterRadioGroupProps) => {
+  const locale = useLocale()
+
   return (
-    <div className="flex gap-x-3 flex-col gap-y-3">
+    <div className="flex gap-3 flex-col">
       <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup data-testid={dataTestId} onValueChange={handleChange}>
+      <RadioGroup
+        dir={getLocaleDir(locale)}
+        data-testid={dataTestId}
+        onValueChange={handleChange}
+      >
         {items?.map((i) => (
           <div
             key={i.value}
             className={clx("flex gap-x-2 items-center", {
-              "ml-[-23px]": i.value === value,
+              "ltr:ml-[-23px] rtl:mr-[-23px]": i.value === value,
             })}
           >
             {i.value === value && <EllipseMiniSolid />}

@@ -4,15 +4,17 @@ import { setAddresses } from "@lib/data/cart"
 import compareAddresses from "@lib/util/compare-addresses"
 import { CheckCircleSolid } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text, useToggleState } from "@medusajs/ui"
+import { useToggleState } from "@medusajs/ui"
+import { Heading } from "@components/ui/heading"
+import { Text } from "@components/ui/text"
 import Divider from "@modules/common/components/divider"
 import Spinner from "@modules/common/icons/spinner"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useActionState } from "react"
 import BillingAddress from "../billing_address"
 import ErrorMessage from "../error-message"
 import ShippingAddress from "../shipping-address"
 import { SubmitButton } from "../submit-button"
+import { useQueryParams } from "@lib/hooks/use-query-params"
 
 const Addresses = ({
   cart,
@@ -21,11 +23,9 @@ const Addresses = ({
   cart: HttpTypes.StoreCart | null
   customer: HttpTypes.StoreCustomer | null
 }) => {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const { queryParams, setQueryParams } = useQueryParams()
 
-  const isOpen = searchParams.get("step") === "address"
+  const isOpen = queryParams.get("step") === "address"
 
   const { state: sameAsBilling, toggle: toggleSameAsBilling } = useToggleState(
     cart?.shipping_address && cart?.billing_address
@@ -34,7 +34,7 @@ const Addresses = ({
   )
 
   const handleEdit = () => {
-    router.push(pathname + "?step=address")
+    setQueryParams("step", "address")
   }
 
   const [message, formAction] = useActionState(setAddresses, null)
@@ -42,10 +42,7 @@ const Addresses = ({
   return (
     <div className="bg-white">
       <div className="flex flex-row items-center justify-between mb-6">
-        <Heading
-          level="h2"
-          className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
-        >
+        <Heading level="h5" className="flex flex-row gap-x-2 items-baseline">
           Shipping Address
           {!isOpen && <CheckCircleSolid />}
         </Heading>
