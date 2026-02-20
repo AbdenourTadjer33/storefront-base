@@ -73,3 +73,27 @@ export const noDivisionCurrencies = [
   "xdr",
   "xau",
 ]
+
+export const colorMap: Record<string, string> = {
+  black: "#1a1a1a",
+  white: "#ffffff",
+  red: "#dc2626",
+  blue: "#2563eb",
+  navy: "#1a365d",
+  green: "#16a34a",
+  olive: "#556B2F",
+  yellow: "#eab308",
+  orange: "#ea580c",
+  pink: "#ec4899",
+  purple: "#9333ea",
+  gray: "#6b7280",
+  grey: "#6b7280",
+  brown: "#78350f",
+  cognac: "#8B4513",
+  tan: "#d2b48c",
+  beige: "#f5f5dc",
+  cream: "#fffdd0",
+  ivory: "#fffff0",
+  gold: "#d4af37",
+  silver: "#c0c0c0",
+}

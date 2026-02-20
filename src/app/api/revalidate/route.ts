@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
+import { getCacheTag } from "@lib/data/cookies"
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams
@@ -20,11 +21,16 @@ export async function GET(req: NextRequest) {
           break
         case "collections":
           revalidatePath("/(main)/", "page")
+          revalidatePath("/(main)/collections/[handle]", "page")
           break
         case "categories":
           revalidatePath("/(main)/", "page")
           revalidatePath("/(main)/", "layout")
+          revalidatePath("/(main)/categories/[...category]")
           break
+        case "shippingOption":
+        case "shippingOptionType":
+          revalidateTag(await getCacheTag("shippingOptions"))
         default:
           break
       }
