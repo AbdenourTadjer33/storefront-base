@@ -1,9 +1,44 @@
 {
+    "$schema": "./$schema.json",
     "welcome": "Bienvenu",
+    "pages": {
+        "home": {},
+        "store": {
+            "title": "Tous les produits"
+        },
+        "collection": {},
+        "category": {},
+        "checkout": {
+            "layout": {
+                "back-to-cart": "Retour au panier",
+                "back": "Retour"
+            }
+        }
+    },
     "templates": {
         "store": {
-            "title": "All products"
-        }
+            "title": "Tous les produits"
+        },
+        "cart": {
+            "title": "Panier",
+            "item": "Article",
+            "qty": "Quantité",
+            "price": "Prix",
+            "total": "Total",
+            "summary": "Résumé",
+            "checkout": "Passer à la caisse",
+            "empty-description": "Vous n'avez rien dans votre panier. ",
+            "explore-products": "Explorer les produits",
+            "sign-in": {
+                "title": "Vous avez déjà un compte ?",
+                "description": "Connectez-vous pour une meilleure expérience.",
+                "signin": "Se connecter"
+            }
+        },
+          "checkout-summary": {
+            "title": "Dans votre panier"
+        },
+        "checkout-form": {}
     },
     "components": {
         "locale-switcher": {
@@ -12,12 +47,17 @@
         "nav": {
             "home": "Accueil",
             "store": "Boutique",
+            "products": "Produits",
             "cart": "Panier",
             "search": "Rechercher",
-            "account": "Mon compte"
+            "account": "Mon compte",
+            "new": "Nouveautés",
+            "seeall": "Voir tout →",
+            "login": "Se connecter",
+            "register": "S'inscrire"
         },
         "search": {
-            "title": "Rechercher",
+            "title": "Recherchez dans notre magasin",
             "placeholder": "Rechercher des produits...",
             "hint": "Commencez à saisir du texte pour effectuer une recherche..."
         },
@@ -69,13 +109,79 @@
             "warranty": "Garantie"
         },
         "product-badges": {
-            "new": "New",
-            "bestseller": "Bestseller",
-            "limited": "Limited Edition"
+            "new": "Nouveau",
+            "bestseller": "Best-seller",
+            "limited": "Édition limitée"
         },
         "related-products": {
-            "title": "Related products",
-            "description": "You might also want to check out these products."
+            "title": "Produits associés",
+            "description": "Vous voudrez peut-être également consulter ces produits."
+        },
+        "product-preview": {
+            "add-cart": "Ajouter au panier"
+        },
+        "sort-products": {
+            "sort-by": "Trier par",
+            "created_at": "Nouveaux",
+            "price_asc": "Prix: Bas -> Haut",
+            "price_desc": "Prix: Haut -> Bas"
+        },
+        "infinite-scroll-products": {
+            "loading": "Chargement de plus de produits...",
+            "notfound": "Aucun produit trouvé"
+        },
+        "filter-panel": {
+            "title": "Filtres",
+            "clear-all": "Tout effacer",
+            "clear": "Clair",
+            "all-categories": "Toutes les catégories",
+            "categories": "Catégories",
+            "brands": "Marques",
+            "colors": "Couleurs",
+            "sizes": "Tailles",
+            "types": "Espèces",
+            "tags": "Balises"
+        },
+        "cart-totals": {
+            "subtotal": "Sous-total (hors frais d'expédition et taxes)",
+            "shipping": "Expédition",
+            "discount": "Rabais",
+            "taxes": "Taxes",
+            "total": "Total"
+        },
+        "discount-code": {
+            "add-promo": "Ajouter des codes promotionnels",
+            "discount-placeholder": "Entrez votre code promo",
+            "apply": "Appliquer",
+            "promo-applied": "Promotion(s) appliquée(s) :",
+            "auto-promo": "Cette promotion est automatiquement appliquée",
+            "remove-discount": "Supprimer le code de réduction de la commande"
+        },
+        "checkout-addresses": {
+            "address": "Adresse de facturation et de livraison",
+            "coordinate": "Coordonnées"
+        },
+        "login": {
+            "title": "Welcome back",
+            "description": "Sign in to access an enhanced shopping experience.",
+            "email": "Email",
+            "email-placeholder": "Enter a valid email address.",
+            "password": "Password",
+            "sign-in": "Sign in",
+            "register-1": "Not a member?",
+            "join-us": "Join us"
+        },
+        "register": {
+            "title": "Become a Medusa Store Member",
+            "description": "Create your Medusa Store Member profile, and get access to an enhanced shopping experience.",
+            "firstname": "First name",
+            "lastname": "Last name",
+            "email": "Email",
+            "phone": "Phone",
+            "password": "Password",
+            "join": "Join",
+            "sign-in-1": "Already a member?",
+            "sign-in": "Sign in"
         }
     }
 }

@@ -1,9 +1,44 @@
 {
+    "$schema": "./$schema.json",
     "welcome": "مرحباً",
+    "pages": {
+        "home": {},
+        "store": {
+            "title": "جميع المنتجات"
+        },
+        "collection": {},
+        "category": {},
+        "checkout": {
+            "layout": {
+                "back-to-cart": "العودة إلى عربة التسوق",
+                "back": "العودة"
+            }
+        }
+    },
     "templates": {
         "store": {
-            "title": "All products"
-        }
+            "title": "جميع المنتجات"
+        },
+        "cart": {
+            "title": "عربة التسوق",
+            "item": "غرض",
+            "qty": "كمية",
+            "price": "سعر",
+            "total": "المجموع",
+            "summary": "ملخص",
+            "checkout": "اذهب إلى الخروج",
+            "empty-description": "ليس لديك أي شيء في سلة التسوق الخاصة بك. ",
+            "explore-products": "اكتشف المنتجات",
+            "sign-in": {
+                "title": "هل لديك حساب بالفعل؟",
+                "description": "قم بتسجيل الدخول للحصول على تجربة أفضل.",
+                "signin": "تسجيل الدخول"
+            }
+        },
+        "checkout-summary": {
+            "title": "في سلة التسوق الخاصة بك"
+        },
+        "checkout-form": {}
     },
     "components": {
         "locale-switcher": {
@@ -12,9 +47,14 @@
         "nav": {
             "home": "الرئيسية",
             "store": "محل",
-            "cart": "عربة",
+            "products": "منتجات",
+            "cart": "عربة التسوق",
             "search": "بحث",
-            "account": "حسابي الشخصي"
+            "account": "حسابي الشخصي",
+            "new": "ما هو الجديد",
+            "seeall": "شاهد الكل →",
+            "login": "تسجيل الدخول",
+            "register": "يسجل"
         },
         "search": {
             "title": "بحث",
@@ -69,13 +109,75 @@
             "warranty": "ضمان"
         },
         "product-badges": {
-            "new": "New",
-            "bestseller": "Bestseller",
-            "limited": "Limited Edition"
+            "new": "جديد",
+            "bestseller": "الأكثر مبيعًا",
+            "limited": "طبعة محدودة"
         },
         "related-products": {
-            "title": "Related products",
-            "description": "You might also want to check out these products."
+            "title": "المنتجات ذات الصلة",
+            "description": "قد ترغب أيضًا في التحقق من هذه المنتجات."
+        },
+        "product-preview": {
+            "add-cart": "أضف إلى السلة"
+        },
+        "sort-products": {
+            "sort-by": "الترتيب حسب",
+            "created_at": "أحدث الوافدين",
+            "price_asc": "السعر: منخفض -> مرتفع",
+            "price_desc": "السعر: مرتفع -> منخفض"
+        },
+        "infinite-scroll-products": {
+            "loading": "جارٍ تحميل المزيد من المنتجات...",
+            "notfound": "لم يتم العثور على منتجات"
+        },
+        "filter-panel": {
+            "title": "المرشحات",
+            "clear-all": "مسح الكل",
+            "clear": "واضح",
+            "all-categories": "جميع الفئات",
+            "categories": "فئات",
+            "brands": "العلامات التجارية",
+            "colors": "الألوان",
+            "sizes": "الأحجام",
+            "types": "أنواع",
+            "tags": "العلامات"
+        },
+        "cart-totals": {
+            "subtotal": "المجموع الفرعي (باستثناء الشحن والضرائب)",
+            "shipping": "شحن",
+            "discount": "تخفيض",
+            "taxes": "الضرائب",
+            "total": "المجموع"
+        },
+        "discount-code": {
+            "add-promo": "إضافة رمز (رموز) ترويجية",
+            "discount-placeholder": "أدخل الرمز الترويجي الخاص بك",
+            "apply": "يتقدم",
+            "promo-applied": "تم تطبيق الترويج (العروض الترويجية):",
+            "auto-promo": "يتم تطبيق هذا الترويج تلقائيا",
+            "remove-discount": "إزالة رمز الخصم من الطلب"
+        },
+        "login": {
+            "title": "مرحبًا بعودتك",
+            "description": "قم بتسجيل الدخول للوصول إلى تجربة تسوق محسنة.",
+            "email": "بريد إلكتروني",
+            "email-placeholder": "أدخل عنوان بريد إلكتروني صالحًا.",
+            "password": "كلمة المرور",
+            "sign-in": "تسجيل الدخول",
+            "register-1": "لست عضوا؟",
+            "join-us": "انضم إلينا"
+        },
+        "register": {
+            "title": "كن عضوًا في متجر ميدوسا",
+            "description": "قم بإنشاء ملف تعريف عضو متجر Medusa الخاص بك، واحصل على تجربة تسوق محسنة.",
+            "firstname": "الاسم الأول",
+            "lastname": "اسم العائلة",
+            "email": "بريد إلكتروني",
+            "phone": "هاتف",
+            "password": "كلمة المرور",
+            "join": "ينضم",
+            "sign-in-1": "هل أنت عضو بالفعل؟",
+            "sign-in": "تسجيل الدخول"
         }
     }
 }

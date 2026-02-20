@@ -38,9 +38,29 @@
           "properties": {},
           "required": [],
           "additionalProperties": false
+        },
+        "checkout": {
+          "type": "object",
+          "properties": {
+            "layout": {
+              "type": "object",
+              "properties": {
+                "back-to-cart": {
+                  "type": "string"
+                },
+                "back": {
+                  "type": "string"
+                }
+              },
+              "required": ["back-to-cart", "back"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["layout"],
+          "additionalProperties": false
         }
       },
-      "required": ["home", "store", "collection", "category"],
+      "required": ["home", "store", "collection", "category", "checkout"],
       "additionalProperties": false
     },
     "templates": {
@@ -116,9 +136,25 @@
             "sign-in"
           ],
           "additionalProperties": false
+        },
+        "checkout-summary": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": ["title"],
+          "additionalProperties": false
+        },
+        "checkout-form": {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": false
         }
       },
-      "required": ["store", "cart"],
+      "required": ["store", "cart", "checkout-summary", "checkout-form"],
       "additionalProperties": false
     },
     "components": {
@@ -496,6 +532,60 @@
           ],
           "additionalProperties": false
         },
+        "cart-totals": {
+          "type": "object",
+          "properties": {
+            "subtotal": {
+              "type": "string"
+            },
+            "shipping": {
+              "type": "string"
+            },
+            "discount": {
+              "type": "string"
+            },
+            "taxes": {
+              "type": "string"
+            },
+            "total": {
+              "type": "string"
+            }
+          },
+          "required": ["subtotal", "shipping", "discount", "taxes", "total"],
+          "additionalProperties": false
+        },
+        "discount-code": {
+          "type": "object",
+          "properties": {
+            "add-promo": {
+              "type": "string"
+            },
+            "discount-placeholder": {
+              "type": "string"
+            },
+            "apply": {
+              "type": "string"
+            },
+            "promo-applied": {
+              "type": "string"
+            },
+            "auto-promo": {
+              "type": "string"
+            },
+            "remove-discount": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "add-promo",
+            "discount-placeholder",
+            "apply",
+            "promo-applied",
+            "auto-promo",
+            "remove-discount"
+          ],
+          "additionalProperties": false
+        },
         "login": {
           "type": "object",
           "properties": {
@@ -601,6 +691,8 @@
         "sort-products",
         "infinite-scroll-products",
         "filter-panel",
+        "cart-totals",
+        "discount-code",
         "login",
         "register"
       ],

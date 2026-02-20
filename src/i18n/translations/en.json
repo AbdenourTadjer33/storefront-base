@@ -1,9 +1,44 @@
 {
+    "$schema": "./$schema.json",
     "welcome": "Welcome",
+    "pages": {
+        "home": {},
+        "store": {
+            "title": "All products"
+        },
+        "collection": {},
+        "category": {},
+        "checkout": {
+            "layout": {
+                "back-to-cart": "Back to shopping cart",
+                "back": "Back"
+            }
+        }
+    },
     "templates": {
         "store": {
             "title": "All products"
-        }
+        },
+        "cart": {
+            "title": "Shopping cart",
+            "item": "Item",
+            "qty": "Quantity",
+            "price": "Price",
+            "total": "Total",
+            "summary": "Summary",
+            "checkout": "Go to checkout",
+            "empty-description": "You don't have anything in your cart. Let's change that, use the link below to start browsing our products.",
+            "explore-products": "Explore products",
+            "sign-in": {
+                "title": "Already have an account?",
+                "description": "Sign in for a better experience.",
+                "signin": "Sign in"
+            }
+        },
+        "checkout-summary": {
+            "title": "In your cart"
+        },
+        "checkout-form": {}
     },
     "components": {
         "locale-switcher": {
@@ -12,9 +47,14 @@
         "nav": {
             "home": "Home",
             "store": "Store",
+            "products": "Products",
             "cart": "Cart",
             "search": "Search",
-            "account": "Account"
+            "account": "Account",
+            "new": "What's new",
+            "seeall": "See all →",
+            "login": "Sign in",
+            "register": "Register"
         },
         "search": {
             "title": "Search",
@@ -76,6 +116,68 @@
         "related-products": {
             "title": "Related products",
             "description": "You might also want to check out these products."
+        },
+        "product-preview": {
+            "add-cart": "Add to Cart"
+        },
+        "sort-products": {
+            "sort-by": "Sort by",
+            "created_at": "Latest Arrivals",
+            "price_asc": "Price: Low -> High",
+            "price_desc": "Price: High -> Low"
+        },
+        "infinite-scroll-products": {
+            "loading": "Loading more products...",
+            "notfound": "No products found"
+        },
+        "filter-panel": {
+            "title": "Filters",
+            "clear-all": "Clear all",
+            "clear": "Clear",
+            "all-categories": "All categories",
+            "categories": "Categories",
+            "brands": "Brands",
+            "colors": "Colors",
+            "sizes": "Sizes",
+            "types": "Types",
+            "tags": "Tags"
+        },
+        "cart-totals": {
+            "subtotal": "Subtotal (excl. shipping and taxes)",
+            "shipping": "Shipping",
+            "discount": "Discount",
+            "taxes": "Taxes",
+            "total": "Total"
+        },
+        "discount-code": {
+            "add-promo": "Add Promotion Code(s)",
+            "discount-placeholder": "Enter your promo code",
+            "apply": "Apply",
+            "promo-applied": "Promotion(s) applied:",
+            "auto-promo": "This promotion is automatically applied",
+            "remove-discount": "Remove discount code from order"
+        },
+        "login": {
+            "title": "Welcome back",
+            "description": "Sign in to access an enhanced shopping experience.",
+            "email": "Email",
+            "email-placeholder": "Enter a valid email address.",
+            "password": "Password",
+            "sign-in": "Sign in",
+            "register-1": "Not a member?",
+            "join-us": "Join us"
+        },
+        "register": {
+            "title": "Become a Medusa Store Member",
+            "description": "Create your Medusa Store Member profile, and get access to an enhanced shopping experience.",
+            "firstname": "First name",
+            "lastname": "Last name",
+            "email": "Email",
+            "phone": "Phone",
+            "password": "Password",
+            "join": "Join",
+            "sign-in-1": "Already a member?",
+            "sign-in": "Sign in"
         }
     }
 }
